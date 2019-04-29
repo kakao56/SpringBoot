@@ -15,7 +15,6 @@
 		<result column="view_cnt" property="vCnt"/>
 	</resultMap>
 	
-	
 	<!-- 검색조건 -->
 	<sql id="searchOption">
 		<if test="searchType != null and searchType != '전체'">
