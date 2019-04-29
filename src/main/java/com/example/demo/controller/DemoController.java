@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -36,6 +37,13 @@ public class DemoController {
 		demoService.getDetail(map, model, req, res);
 		return "detail";
 	}
+	
+	@RequestMapping("delete")
+	public String delete(@RequestParam List<String> delchk) throws Exception {
+		demoService.goDelete(delchk);
+		return "redirect:list";
+	}
+
 	
 	
 }

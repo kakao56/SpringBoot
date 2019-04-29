@@ -79,7 +79,7 @@ public class DemoServiceImpl implements DemoService{
 		String tb_seq = tb+seq;
 		boolean flag = false;
 		
-		System.out.println(tb_seq);
+		//System.out.println(tb_seq);
 		
 		if(getCookies != null) {
 			for (Cookie c : getCookies) {
@@ -106,11 +106,26 @@ public class DemoServiceImpl implements DemoService{
 			
 			int cnt = demoMaper.upCnt(item);
 			
-
 		}
 		
 		model.addAttribute("item",item);
 			
+	}
+
+
+	@Override
+	public void goDelete(List<String> delchk) {
+		
+		if(delchk.size() > 0) {
+		
+			int cnt = demoMaper.goDelet(delchk);
+			
+			if(cnt == 0 ) {
+				System.out.println("삭제 오류");
+			}
+			
+		}
+		
 	}
 
 }

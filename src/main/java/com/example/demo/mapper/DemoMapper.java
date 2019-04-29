@@ -16,4 +16,6 @@ public interface DemoMapper {
 
 	Map<String, Object> getDetail(Map<String, Object> map) throws Exception;
 
+	int goDelet(List<String> delchk);
+
 }

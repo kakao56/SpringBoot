@@ -35,6 +35,16 @@
 			$("input[name=nowPage]").val(pg);
 			$("#searchbtn").click();
 		}
+		
+		function delfn(){
+			
+			var c_cnt = $("input[type=checkbox]:checked").length;
+			
+			if(c_cnt != 0){
+				$("#delfrm").attr("action","delete").attr("method","get").submit(); 
+			}
+			
+		}
 	</script>
 </head>
 <body>
@@ -54,6 +64,8 @@
 				<input type="hidden" id="p_searchType" value="${searchType }">
 		</div>
 		</p>
+		<input type="button" onclick="delfn()" value="삭제">
+		<input type="button" value="글쓰기">
 		<div id="listdv">
 			<table border="1">
 				<colgroup>
@@ -78,16 +90,28 @@
 				<tbody align="center" valign="middle">
 					<c:choose>
 						<c:when test="${list ne null }">
-							<c:forEach items="${list }" var="item">
-								<tr>
-									<td><input type="checkbox" name="delchk" value="${item.seq }"> </td>
-									<td><label>${item.seq }</label> </td>
-									<td><a href="detail/?seq=${item.seq }">${item.subject } </a> </td>
-									<td>${item.id } </td>
-									<td>${item.rDate } </td>
-									<td>${item.vCnt }</td>
-								</tr>
-							</c:forEach>
+							<jsp:useBean id="now" class="java.util.Date" />
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />  
+							<form id="delfrm">
+								<c:forEach items="${list }" var="item">
+									<fmt:formatDate value="${item.rDate}" pattern="yyyy-MM-dd" var="rDate"/>
+									<tr>
+										<td><input type="checkbox" name="delchk" value="${item.seq }"> </td>
+										<td><label>${item.seq }</label> </td>								
+										<td><a href="detail/?seq=${item.seq }">${item.subject } </a> </td>
+										<td>${item.id } </td>
+										<c:choose>																		
+											<c:when test="${nowDate eq rDate}">
+												<td><fmt:formatDate value="${item.rDate}" pattern="HH:mm:ss"/></td>
+											</c:when>
+											<c:otherwise>
+													<td> ${rDate}</td>
+											</c:otherwise>
+										</c:choose>
+										<td>${item.vCnt }</td>
+									</tr>
+								</c:forEach>
+							</form>
 						</c:when>
 						<c:otherwise>
 						<tr>

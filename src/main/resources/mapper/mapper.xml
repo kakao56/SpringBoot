@@ -32,7 +32,6 @@
 				</when>
 			</choose>
 			like  concat('%',#{searchValue},'%')
-			
 		</if>
 	</sql>
 	
@@ -77,7 +76,7 @@
 		from 
 			board_study 
 		where
-			seq = #{seq} 
+			seq = ${seq} 
 	</select>
 	
 	<!-- 조회수 증가 -->
@@ -88,6 +87,14 @@
 		where
 			seq = #{seq}
 	</update>
+	
+	<delete id="goDelet">
+		delete from board_study
+		where 1=1
+			<foreach collection="list" item="item" open="and seq in (" close=")" separator=",">
+				${item}
+			</foreach>
+	</delete>
   
 </mapper>
 
