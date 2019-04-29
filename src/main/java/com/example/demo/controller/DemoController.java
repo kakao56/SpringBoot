@@ -26,13 +26,13 @@ public class DemoController {
 	}
 
 	@RequestMapping("list")
-	public String list(@RequestParam Map<String, Object> map, Model model) {
+	public String list(@RequestParam Map<String, Object> map, Model model) throws Exception {
 		demoService.getList(map, model);
 		return "list";
 	}
 	
 	@RequestMapping("detail")
-	public String detail(@RequestParam Map<String, Object> map, Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String detail(@RequestParam Map<String, Object> map, Model model, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		demoService.getDetail(map, model, req, res);
 		return "detail";
 	}

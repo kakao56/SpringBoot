@@ -8,22 +8,23 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.example.demo.dao.DemoDao;
+import com.example.demo.mapper.DemoMapper;
 import com.example.demo.service.DemoService;
 import com.example.demo.util.PageUtil;
 
 @Service("service")
 public class DemoServiceImpl implements DemoService{
 
-	@Resource(name="dao")
-	private DemoDao demoDao;
+	@Autowired
+	private DemoMapper demoMaper;
 	
 
 	@Override
-	public void getList(Map<String, Object> map, Model model) {
+	public void getList(Map<String, Object> map, Model model) throws Exception {
 		
 		int nowPage =1, totalCount = 0, pagePerSize = 20, pagePerBlock = 5;
 		
@@ -37,13 +38,13 @@ public class DemoServiceImpl implements DemoService{
 				nowPage = 1;
 			}
 		}
-		
+
 		if(o_searchT != null) {
 			model.addAttribute("searchType", o_searchT);
 			model.addAttribute("searchValue", map.get("searchValue"));
 		}
 		
-		totalCount = demoDao.getTotalCount(map);
+		totalCount = demoMaper.getTotalCount(map);
 
 		if(totalCount == 0) {
 			//System.out.println("검색된 게시물 없음");
@@ -55,7 +56,7 @@ public class DemoServiceImpl implements DemoService{
 		map.put("pagePerSize", pagePerSize);
 		map.put("begin", page.getBegin());
 		
-		List<Map<String, Object>> list = demoDao.getList(map);
+		List<Map<String, Object>> list = demoMaper.getList(map);
 
 		model.addAttribute("list",list);
 		model.addAttribute("pageCode",page.getPageCode());
@@ -64,9 +65,9 @@ public class DemoServiceImpl implements DemoService{
 
 
 	@Override
-	public void getDetail(Map<String, Object> map, Model model, HttpServletRequest req, HttpServletResponse res) {
+	public void getDetail(Map<String, Object> map, Model model, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		Map<String, Object> item =  demoDao.getDetail(map);
+		Map<String, Object> item =  demoMaper.getDetail(map);
 		
 		if(item == null) {
 			return;
@@ -103,7 +104,7 @@ public class DemoServiceImpl implements DemoService{
 			
 			item.put("vCnt", Integer.parseInt(item.get("vCnt").toString())+1);
 			
-			int cnt = demoDao.upCnt(item);
+			int cnt = demoMaper.upCnt(item);
 			
 
 		}

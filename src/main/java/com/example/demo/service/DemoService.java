@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 
 public interface DemoService {
 
-	void getList(Map<String, Object> map, Model model);
+	void getList(Map<String, Object> map, Model model) throws Exception;
 
-	void getDetail(Map<String, Object> map, Model model, HttpServletRequest req, HttpServletResponse res);
+	void getDetail(Map<String, Object> map, Model model, HttpServletRequest req, HttpServletResponse res) throws Exception;
 
 }
