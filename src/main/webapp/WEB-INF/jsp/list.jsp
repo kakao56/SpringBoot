@@ -41,7 +41,7 @@
 			var c_cnt = $("input[type=checkbox]:checked").length;
 			
 			if(c_cnt != 0){
-				$("#delfrm").attr("action","delete").attr("method","get").submit(); 
+				$("#delfrm").attr("action","delete").attr("method","post").submit(); 
 			}
 			
 		}

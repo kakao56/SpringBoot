@@ -67,6 +67,13 @@ public class DemoServiceImpl implements DemoService{
 	@Override
 	public void getDetail(Map<String, Object> map, Model model, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
+		try {
+			Integer.parseInt(map.get("seq").toString());
+		}catch (Exception e) {
+			map.put("seq",-1);
+		}
+		
+		
 		Map<String, Object> item =  demoMaper.getDetail(map);
 		
 		if(item == null) {
@@ -79,14 +86,10 @@ public class DemoServiceImpl implements DemoService{
 		String tb_seq = tb+seq;
 		boolean flag = false;
 		
-		//System.out.println(tb_seq);
-		
 		if(getCookies != null) {
 			for (Cookie c : getCookies) {
-				
-				String c_name = c.getName();
-				System.out.println(c_name);
-				if(tb_seq.equals(c_name)) {
+							
+				if(tb_seq.equals(c.getName())) {
 					flag = !flag;
 					break;
 				}

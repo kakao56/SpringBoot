@@ -19,19 +19,17 @@
 	<!-- 검색조건 -->
 	<sql id="searchOption">
 		<if test="searchType != null and searchType != '전체'">
-			and
-			<choose>
-				<when test="searchType == '제목'">
-					board_subject
+			<choose><!-- 타입을 직접 치고들어올수 있어서 and와 like를 빼서 공통으로 쓸 수 없다-->
+				<when test="searchType == '제목'"> 
+					and board_subject like  concat('%',#{searchValue},'%')
 				</when>
 				<when test="searchType == '아이디'">
-					mem_id
+					and mem_id like  concat('%',#{searchValue},'%')
 				</when>
 				<when test="searchType == '내용'">
-					board_content
+					and board_content like  concat('%',#{searchValue},'%')
 				</when>
 			</choose>
-			like  concat('%',#{searchValue},'%')
 		</if>
 	</sql>
 	
@@ -85,14 +83,14 @@
 		set 
 			view_cnt = #{vCnt}
 		where
-			seq = #{seq}
+			seq = ${seq}
 	</update>
 	
 	<delete id="goDelet">
 		delete from board_study
 		where 1=1
-			<foreach collection="list" item="item" open="and seq in (" close=")" separator=",">
-				${item}
+			<foreach collection="list" item="seq" open="and seq in (" close=")" separator=",">
+				${seq}
 			</foreach>
 	</delete>
   
