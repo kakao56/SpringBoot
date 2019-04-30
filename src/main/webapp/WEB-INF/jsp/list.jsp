@@ -38,9 +38,7 @@
 		
 		function delfn(){
 			
-			var c_cnt = $("input[type=checkbox]:checked").length;
-			
-			if(c_cnt != 0){
+			if($("input[type=checkbox]:checked").length != 0){
 				$("#delfrm").attr("action","delete").attr("method","post").submit(); 
 			}
 			

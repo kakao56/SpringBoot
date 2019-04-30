@@ -19,7 +19,7 @@
 				<p>등록일 : ${item.rDate }</p>
 				<p>조회수 : ${item.vCnt }</p>
 				<div id="contentdv">
-					 ${item.content }
+						${item.content }
 				</div>
 			</c:when>
 			<c:otherwise>
